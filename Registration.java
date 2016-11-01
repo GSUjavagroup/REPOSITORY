@@ -1,6 +1,10 @@
 // Creating a registration class.
 public class Registration {
 
+	
+	// MATT'S CHANGE
+	
+	
   // creating variable to store customer information.
   private String firstName;
   private String lastName;

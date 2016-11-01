@@ -1,6 +1,7 @@
 // Creating a public class to store all info for flights.
 public class FlightDatabase {
 
+	// CHANGE!!!!
 
 // Alabama	AL
 String AL1 = "Birmingham International Airport	BHM";

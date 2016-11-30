@@ -14,6 +14,8 @@ public class LoginPage extends JFrame {
 	
 	JLabel LDomesticFlight = new JLabel("<html><B>Domestic Flights</B></html>");
 	JLabel LInternationalFlight = new JLabel("<html><B>International Flights</B></html>");
+	
+	JButton BLogin;
 
 
 }

@@ -1,4 +1,4 @@
-// Creating a public class to store all info for flights.
+//Laura - are we putting this in mysql or having customer data in db
 public class FlightDatabase {
 
 

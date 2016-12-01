@@ -1,5 +1,6 @@
 public class GUIpractice {
 	//this code doesn't work right now but maybe we can figure out how it works
+	//help!
     public static void main(String[] args) {
         final String text = args[0];
         SwingUtilities.invokeLater(new Runnable() {

@@ -50,7 +50,9 @@ public static void main(String[] args) {
   System.out.println("Social Security Number:");
   System.out.println("Please select one of the Secuirty Questions below: ");
 
-
+//need to find out how the security questions will be prompted to user
+  //currnetly not prompting anything - link to login?
+  
   String secQues1 = "What town were you born in?";
   String secQues2 = "What highschool did you graduate from?";
   String secQues3 = "What was your favorite pet's name?";

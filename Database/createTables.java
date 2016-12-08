@@ -3,6 +3,7 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+//make sure you have jdbc driver in library build path 
 
 public class createTables {
 	public static void main(String[]args) throws Exception{

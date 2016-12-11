@@ -1,31 +1,77 @@
+package main;
+import flights.FlightBooking;
+import userInfo.Admin;
+import userInfo.Customer;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.UIManager;
+
+import database.sendData;
+
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+//Buttons = clear all, main menu, register customer, register admin
 public class Registration extends JFrame {
+	
+	//must call code to send to database 
+	sendData send = new sendData();
+	
+	JTextField[] jtf = {new JTextField(), new JTextField(), new JTextField(),
+						new JTextField(), new JTextField(), new JTextField(),
+						new JTextField(), new JTextField(), new JTextField(),
+						new JTextField(), new JTextField(), new JTextField()};
+	
+	String[] states = { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA",
+			"KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY",
+			"NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI",
+			"WY" };
+	
+	String[] securQuest = { "What is your Mother's Maiden Name?", "Who is your favorite actor/actress?",
+			"What was your first pet's name?", "What city were you born in?", "What is your favorite class at GSU?",
+			"What is your favorite color?" };
 
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-
+	JComboBox comboBox_1 = new JComboBox(states);
+	JComboBox comboBox_2 = new JComboBox(securQuest);
+	JButton clear;
+	
+	//changing variable names to match object and database variables
+	//String username, String password, String firstName, String middleInitial, String lastName, String address, String city, int zip, String state, String email, int ssn, String secQ, String secA) throws IllegalArgumentException{
+	
+	
+	static String firstName;		//3
+	static String middleInitial;	//4
+	static String lastName;			//5
+	static String address;			//6
+	static String city; 			//7
+	static String state;			//9
+	static String zipSTRING;				//8 NEED TO CAST TO INT 
+	static String ssnSTRING;				//11 NEED TO CAST TO INT
+	static String email;			//10
+	static String username;			//1
+	static String initialPassword;
+	static String password;			//2
+	static String secQ;				//13
+	static String secA;				//14
+	private JTextField textField;
+	
 	public Registration() {
-
+		getContentPane().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		
 		getContentPane().setBackground(UIManager.getColor("EditorPane.selectionBackground"));
 		getContentPane().setLayout(null);
 
@@ -35,80 +81,68 @@ public class Registration extends JFrame {
 
 		// changing color of text. (must import color from awt)
 		lblRegPage.setForeground(Color.white);
-
 		lblRegPage.setFont(new Font("Arial", Font.BOLD, 24));
 
 		// First Name Text Field
-		textField_1 = new JTextField();
-		textField_1.setBounds(538, 123, 229, 26);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		jtf[0].setBounds(538, 123, 229, 26);
+		getContentPane().add(jtf[0]);
+		jtf[0].setColumns(10);
 
 		// Middle Initial Text Field
-		textField_2 = new JTextField();
-		textField_2.setBounds(538, 149, 28, 26);
-		getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		jtf[1].setBounds(538, 149, 28, 26);
+		getContentPane().add(jtf[1]);
+		jtf[1].setColumns(10);
 
 		// Last Name Text Field
-		textField_3 = new JTextField();
-		textField_3.setBounds(538, 173, 229, 26);
-		getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		jtf[2].setBounds(538, 173, 229, 26);
+		getContentPane().add(jtf[2]);
+		jtf[2].setColumns(10);
 
 		// Street Address Text Field
-		textField_4 = new JTextField();
-		textField_4.setBounds(538, 196, 229, 26);
-		getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		jtf[3].setBounds(538, 196, 229, 26);
+		getContentPane().add(jtf[3]);
+		jtf[3].setColumns(10);
 
 		// City Text Field
-		textField_5 = new JTextField();
-		textField_5.setBounds(446, 226, 104, 26);
-		getContentPane().add(textField_5);
-		textField_5.setColumns(10);
+		jtf[4].setBounds(446, 226, 104, 26);
+		getContentPane().add(jtf[4]);
+		jtf[4].setColumns(10);
 
 		// Zip Code Text Field
-		textField_6 = new JTextField();
-		textField_6.setBounds(734, 226, 82, 26);
-		getContentPane().add(textField_6);
-		textField_6.setColumns(10);
+		jtf[5].setBounds(734, 226, 82, 26);
+		getContentPane().add(jtf[5]);
+		jtf[5].setColumns(10);
 
 		// SSN Text Field
-		textField_7 = new JTextField();
-		textField_7.setBounds(610, 259, 156, 26);
-		getContentPane().add(textField_7);
-		textField_7.setColumns(10);
+		jtf[6].setBounds(610, 259, 156, 26);
+		getContentPane().add(jtf[6]);
+		jtf[6].setColumns(10);
 
 		// Email Address Text Field
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(610, 287, 156, 26);
-		getContentPane().add(textField_8);
+		jtf[7].setColumns(10);
+		jtf[7].setBounds(610, 287, 156, 26);
+		getContentPane().add(jtf[7]);
 
 		// Username Text Field
-		textField_9 = new JTextField();
-		textField_9.setBounds(610, 310, 156, 26);
-		getContentPane().add(textField_9);
-		textField_9.setColumns(10);
+		jtf[8].setBounds(610, 310, 156, 26);
+		getContentPane().add(jtf[8]);
+		jtf[8].setColumns(10);
 
 		// Initial Password Text Field
-		textField_10 = new JTextField();
-		textField_10.setBounds(610, 335, 156, 26);
-		getContentPane().add(textField_10);
-		textField_10.setColumns(10);
+		jtf[9].setBounds(610, 335, 156, 26);
+		getContentPane().add(jtf[9]);
+		jtf[9].setColumns(10);
 
 		// Confirm Password Text Field
-		textField_11 = new JTextField();
-		textField_11.setBounds(610, 359, 156, 26);
-		getContentPane().add(textField_11);
-		textField_11.setColumns(10);
+		jtf[10].setBounds(610, 359, 156, 26);
+		getContentPane().add(jtf[10]);
+		jtf[10].setColumns(10);
+
 
 		// Answer to Security Question Text Field
-		textField_12 = new JTextField();
-		textField_12.setBounds(610, 410, 156, 26);
-		getContentPane().add(textField_12);
-		textField_12.setColumns(10);
+		jtf[11].setBounds(610, 410, 156, 26);
+		getContentPane().add(jtf[11]);
+		jtf[11].setColumns(10);
 
 		JLabel lblFirstName = new JLabel("First Name:");
 		lblFirstName.setBounds(457, 128, 93, 16);
@@ -166,47 +200,151 @@ public class Registration extends JFrame {
 		lblAnswer.setBounds(547, 415, 61, 16);
 		getContentPane().add(lblAnswer);
 
-		JButton btnClearAll = new JButton("Clear All");
-		btnClearAll.setBounds(432, 461, 117, 29);
-		getContentPane().add(btnClearAll);
-
+		clear = new JButton("Clear All");
+		clear.setBounds(432, 461, 117, 29);
+		getContentPane().add(clear);
+		
+		clear.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				for(int i = 0; i < jtf.length; i++) {
+					jtf[i].setText("");
+				}
+			}
+			
+		});
+			
 		JButton btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.setBounds(568, 461, 117, 29);
 		getContentPane().add(btnMainMenu);
-
-		JButton btnRegister = new JButton("Register");
-		btnRegister.setBounds(704, 461, 117, 29);
-		getContentPane().add(btnRegister);
-
-		String[] states = { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA",
-				"KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY",
-				"NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI",
-				"WY" };
-
-		// State List
-		JComboBox comboBox_1 = new JComboBox(states);
+			
+		btnMainMenu.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				Menu newWindow = new Menu();
+				newWindow.setVisible(true);
+				newWindow.setVisible(true);
+				newWindow.setSize(1200, 700);
+				newWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
+			
+		});
+				
+		JButton adminRegister = new JButton("Register Admin");
+		adminRegister.setBounds(568, 622, 125, 29);
+		getContentPane().add(adminRegister);
+		adminRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				//match names: String username, String password, String firstName, String middleInitial, 
+				//String lastName, String address, String city, int zip, String state, String email, 
+				//int ssn, String secQ, String secA) throws IllegalArgumentException
+				
+				
+				firstName = jtf[0].getText();
+				middleInitial = jtf[1].getText();
+				lastName = jtf[2].getText();
+				address = jtf[3].getText();
+				city = jtf[4].getText();
+				state = comboBox_1.getSelectedItem().toString();
+				zipSTRING = jtf[5].getText();
+				ssnSTRING = jtf[6].getText();
+				email = jtf[7].getText();
+				username = jtf[8].getText();
+				initialPassword = jtf[9].getText();
+				password = jtf[10].getText();
+				secQ = comboBox_2.getSelectedItem().toString();
+				secA = jtf[11].getText();
+				
+				int zip = Integer.parseInt(zipSTRING);
+				int ssn = Integer.parseInt(ssnSTRING);
+				
+				//CALL ERROR REPORTING MESSAGES HERE FOR PHONE, SSN VALID ENTRY 
+				
+				Admin myAdmin = new Admin(username, password, firstName, middleInitial, lastName, address, city, zip, state, email, ssn, secQ, secA);
+				//(String username, String password, String firstName, String middleInitial, String lastName, String address, String city, int zip, String state, String email, int ssn, String secQ, String secA) 
+				
+				try {
+					send.postAdmin(myAdmin);
+					System.out.println("Successful send!");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
+		
 		comboBox_1.setVisible(true);
 		comboBox_1.setBounds(595, 227, 70, 27);
 		getContentPane().add(comboBox_1);
-
-		String[] securQuest = { "What is your Mother's Maiden Name?", "Who is your favorite actor/actress?",
-				"What was your first pet's name?", "What city were you born in?", "What is your favorite class at GSU?",
-				"What is your favorite colour?" };
-
-		// Security Question List
-		JComboBox comboBox_2 = new JComboBox(securQuest);
+		
 		comboBox_2.setVisible(true);
 		comboBox_2.setBounds(610, 383, 328, 27);
 		getContentPane().add(comboBox_2);
+		
+		JButton custRegister = new JButton("Register Customer");
+		custRegister.setBounds(704, 461, 145, 29);
+		getContentPane().add(custRegister);
+		custRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				//match names: String username, String password, String firstName, String middleInitial, 
+				//String lastName, String address, String city, int zip, String state, String email, 
+				//int ssn, String secQ, String secA) throws IllegalArgumentException
+				
+				
+				firstName = jtf[0].getText();
+				middleInitial = jtf[1].getText();
+				lastName = jtf[2].getText();
+				address = jtf[3].getText();
+				city = jtf[4].getText();
+				state = comboBox_1.getSelectedItem().toString();
+				zipSTRING = jtf[5].getText();
+				ssnSTRING = jtf[6].getText();
+				email = jtf[7].getText();
+				username = jtf[8].getText();
+				initialPassword = jtf[9].getText();
+				password = jtf[10].getText();
+				secQ = comboBox_2.getSelectedItem().toString();
+				secA = jtf[11].getText();
+				
+				int zip = Integer.parseInt(zipSTRING);
+				int ssn = Integer.parseInt(ssnSTRING);
+				
+				//CALL ERROR REPORTING MESSAGES HERE FOR PHONE, SSN VALID ENTRY 
+				
+				Customer myCustomer = new Customer(username, password, firstName, middleInitial, lastName, address, city, zip, state, email, ssn, secQ, secA);
+				//(String username, String password, String firstName, String middleInitial, String lastName, String address, String city, int zip, String state, String email, int ssn, String secQ, String secA) 
+				
+				try {
+					send.postCust(myCustomer);
+					System.out.println("Successful send!");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 
 	}
+	
+	public static void main(String[] args) throws Exception{
 
-	public static void main(String[] args) {
 
 		Registration frame = new Registration();
 		frame.setVisible(true);
 		frame.setSize(1200, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
 	}
 }
+
+

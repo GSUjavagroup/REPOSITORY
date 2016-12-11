@@ -3,99 +3,92 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import userInfo.Admin;
 import userInfo.Customer;
 
-public class insertUserData {
+public class selectData {
 	
-	public insertUserData(){
+	public selectData(){
+		//to be used for admin or customer data selection in MySQL
+		//copy/ paste to test line: selectData select = new selectData();
 		
 	}
-	//code to push customer object data to MySQL
-	public static void postCust(Customer a) throws Exception{
-		getConnection();
-		
-		int userType = a.getUserType(); 	//userType
-		String userName = a.getUsername(); 	//username
-		String pass = a.getPassword(); 		//password
-		String firstN = a.getFirstN();		//firstName
-		String middleI = a.getMiddle();		//middleInitial
-		String lastN = a.getLastN();		//lastName
-		String address = a.getAddress();	//address
-		String city = a.getCity();			//city
-		String zip = a.getZipcode();		//zip
-		String state = a.getState();		//state
-		String email = a.getEmail();		//email
-		String ssn = a.getSsn();			//ssn
-		String secQ = a.getSecurityQ();		//secQ
-		String secA = a.getSecurityA();		//secA
+	public static <E> ArrayList< E > selectUser(String username) throws Exception{
+		getConnection();	
 		
 		try{
-			//inside try statement: 1st: establish connection
-			Connection con = getConnection();
-			//next make a prepared statement; args are SQL code; INSERT INTO "tablename" + fields to insert
-			//SQL code: firstName, lastName (column headers) VALUES(' ')
-			//inserting variables into values: single quote bc it's String, ending quote string + variable + ending quote, add variable same syntax
-			PreparedStatement posted = con.prepareStatement("INSERT INTO user(userType, username, password, firstName, middleInitial, lastName, address, city, zip, state, email, ssn, secQ, secA) "
-					+ "VALUES('"+userType+"', '"+userName+"', '"+pass+"', '"+firstN+"', '"+middleI+"', '"+lastN+"', '"+address+"', '"+city+"', '"+zip+"', '"+state+"', '"+email+"', '"+ssn+"', '"+secQ+"', '"+secA+"') ");
+			Connection conn = getConnection(); //establish connection
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE '"+username+"' = username");
 			
-			//now run our statement
-			posted.executeUpdate(); //Query is receiving info; Update is adding info
+			ResultSet result = stmt.executeQuery();
 			
-		
-			
-		}catch (Exception e){
+			//create a new array list to return to function
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()){ //basically saying while there's another result coming in
+				array.add(result.getString("userType"));//arg can be column name or number
+				array.add(result.getString("username"));
+				array.add(result.getString("password"));
+				array.add(result.getString("firstName"));
+				array.add(result.getString("middleInitial"));
+				array.add(result.getString("lastName"));
+				array.add(result.getString("address"));
+				array.add(result.getString("city"));
+				array.add(result.getString("zip"));
+				array.add(result.getString("state"));
+				array.add(result.getString("email"));
+				array.add(result.getString("ssn"));
+				array.add(result.getString("secQ"));
+				array.add(result.getString("secA"));
+				
+			}
+			System.out.println("All records have been selected");
+			return (ArrayList<E>) array;
+		}catch(Exception e){
 			System.out.println(e);
 		}
-		finally {
-			System.out.println("Insert Completed");
-		}
 		
-	}
-	public static void postAdmin(Admin a) throws Exception{
-		getConnection();
-		
-		int userType = a.getUserType(); 	//userType
-		String userName = a.getUsername(); 	//username
-		String pass = a.getPassword(); 		//password
-		String firstN = a.getFirstN();		//firstName
-		String middleI = a.getMiddle();		//middleInitial
-		String lastN = a.getLastN();		//lastName
-		String address = a.getAddress();	//address
-		String city = a.getCity();			//city
-		String zip = a.getZipcode();		//zip
-		String state = a.getState();		//state
-		String email = a.getEmail();		//email
-		String ssn = a.getSsn();			//ssn
-		String secQ = a.getSecurityQ();		//secQ
-		String secA = a.getSecurityA();		//secA
-		
-		try{
-			//inside try statement: 1st: establish connection
-			Connection con = getConnection();
-			//next make a prepared statement; args are SQL code; INSERT INTO "tablename" + fields to insert
-			//SQL code: firstName, lastName (column headers) VALUES(' ')
-			//inserting variables into values: single quote bc it's String, ending quote string + variable + ending quote, add variable same syntax
-			PreparedStatement posted = con.prepareStatement("INSERT INTO user(userType, username, password, firstName, middleInitial, lastName, address, city, zip, state, email, ssn, secQ, secA) "
-					+ "VALUES('"+userType+"', '"+userName+"', '"+pass+"', '"+firstN+"', '"+middleI+"', '"+lastN+"', '"+address+"', '"+city+"', '"+zip+"', '"+state+"', '"+email+"', '"+ssn+"', '"+secQ+"', '"+secA+"') ");
-			
-			//now run our statement
-			posted.executeUpdate(); //Query is receiving info; Update is adding info
-			
-		
-			
-		}catch (Exception e){
-			System.out.println(e);
-		}
-		finally {
-			System.out.println("Insert Completed");
-		}
-		
+		return null;
 	}
 	
+	public static <E> ArrayList< E > selectFlight(int flightID) throws Exception{
+		getConnection();	
+		
+		try{
+			Connection conn = getConnection(); //establish connection
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM flights WHERE '"+flightID+"' = flightID");
+			
+			ResultSet result = stmt.executeQuery();
+			
+			//create a new array list to return to function
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()){ //basically saying while there's another result coming in
+				array.add(result.getString("flightID"));//arg can be column name or number
+				array.add(result.getString("flightNum"));
+				array.add(result.getString("departure"));
+				array.add(result.getString("arrival"));
+				array.add(result.getString("depTime"));
+				array.add(result.getString("arrTime"));
+				array.add(result.getString("duration"));
+				array.add(result.getString("gate"));
+				array.add(result.getString("capacity"));
+				array.add(result.getString("cost"));
+				
+			}
+			System.out.println("All records have been selected");
+			return (ArrayList<E>) array;
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		
+		return null;
+	}
+	
+	
+	//standard connection method from other dbms; make sure matt shahzad updated password
 	public static Connection getConnection() throws Exception{
-		//import connection from java.sql and add try/catch 
+		
 		try{
 			String driver = "com.mysql.jdbc.Driver";
 			//string url is where the database is located over the Internet 
@@ -120,21 +113,6 @@ public class insertUserData {
 		return null;
 		//leave as null and return connection in the try statement above
 	}
-
+	
 
 }
-
-	//firstName = jtf[0].getText();
-	//middleInitial = jtf[1].getText();
-	//lastName = jtf[2].getText();
-	//streetAddress = jtf[3].getText();
-	//city = jtf[4].getText();
-	//state = comboBox_1.getSelectedItem().toString();
-	//zipCode = jtf[5].getText();
-	//SSN = jtf[6].getText();
-	//emailAddress = jtf[7].getText();
-	//userName = jtf[8].getText();
-	//initialPassword = jtf[9].getText();
-	//confirmPassword = jtf[10].getText();
-	//secQuest = comboBox_2.getSelectedItem().toString();
-	//answerToQuestion = jtf[11].getText();

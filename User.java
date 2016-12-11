@@ -1,31 +1,21 @@
 package userInfo;
 
-public class User {
+public abstract class User {
 	
-	private String firstN; 		//jtf[0]
-	private String middle; 		//jtf[1]
-	private String lastN; 		//jtf[2]
-	private String address;		//jtf[3]
-	private String city;		//jtf[4]
-	private String state;
-	//no array value for state?
-	private String zipcode;		//jtf[5]
-	private String ssn;			//jtf[6]
-	private String email;		//jtf[7]
 	private String username;	//jtf[8]
 	private String password;	//jtf[9]
-	//nothing for jtf[10] because it's confirming password?
-	private String securityQ;
-	//no array value for security question
-	private String securityA;	//jtf[11]
-	
-	
-	public User(User orig) {
-		// TODO Auto-generated constructor stub
-	}
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
+	private String firstName; 	//jtf[0]
+	private String middleInitial; //jtf[1]
+	private String lastName; 		//jtf[2]
+	private String address;		//jtf[3]
+	private String city;		//jtf[4]
+	private int zip;			//jtf[5]
+	private String state;		//no array value for state?
+	private String email;		//jtf[7]
+	private int ssn;			//jtf[6]
+	private String secQ;		//no array value for security question
+								//nothing for jtf[10] because it's confirming password?
+	private String secA;		//jtf[11]
 	public String getUsername() {
 		return username;
 	}
@@ -38,17 +28,23 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getFirstN() {
-		return firstN;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setFirstN(String firstN) {
-		this.firstN = firstN;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getLastN() {
-		return lastN;
+	public String getMiddleInitial() {
+		return middleInitial;
 	}
-	public void setLastN(String lastN) {
-		this.lastN = lastN;
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getAddress() {
 		return address;
@@ -56,11 +52,17 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getZipcode() {
-		return zipcode;
+	public String getCity() {
+		return city;
 	}
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public int getZip() {
+		return zip;
+	}
+	public void setZip(int zip) {
+		this.zip = zip;
 	}
 	public String getState() {
 		return state;
@@ -68,44 +70,33 @@ public class User {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getSsn() {
-		return ssn;
-	}
-	public void setSsn(String ssn) {
-		this.ssn = ssn;
-	}
-	public String getSecurityQ() {
-		return securityQ;
-	}
-	public void setSecurityQ(String securityQ) {
-		this.securityQ = securityQ;
-	}
-	public String getSecurityA() {
-		return securityA;
-	}
-	public void setSecurityA(String securityA) {
-		this.securityA = securityA;
-	}
-	public String getMiddle() {
-		return middle;
-	}
-	public void setMiddle(String middle) {
-		this.middle = middle;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public int getSsn() {
+		return ssn;
+	}
+	public void setSsn(int ssn) {
+		this.ssn = ssn;
+	}
+	public String getSecQ() {
+		return secQ;
+	}
+	public void setSecQ(String secQ) {
+		this.secQ = secQ;
+	}
+	public String getSecA() {
+		return secA;
+	}
+	public void setSecA(String secA) {
+		this.secA = secA;
+	}
 	
-	//METHODS FOR ALL USERS (remember customer and admin will inherit)
+	
+	
 	
 	
 	

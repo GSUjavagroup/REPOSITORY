@@ -1,5 +1,5 @@
 package SocialSecurity;
-
+//SSN using ArrayList. Parse strSSN to Integer.
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -9,22 +9,52 @@ import javax.swing.JOptionPane;
 public class ValidSocial {
 	
 public static void main(String[] args) {
-	List<String> input = new ArrayList<String>();
-	String strSSN = JOptionPane.showInputDialog("Enter ssn: ");
-	input.add("123-45-6789");
-	input.add("9876-5-4321");
-	input.add("666-65-4321 (attack)");
-	input.add("000-65-4321 ");
-	input.add("192-83-7465");
+	List<Integer> input = new ArrayList<Integer>();
+	String strSSN = JOptionPane.showInputDialog("Enter ssn: "); 
+	Boolean validSSN = true;
+	if(strSSN.length()!= 9) {
+		validSSN = false;
+}
+int intSSN = -1; //dummy. placeholder value.
+
+try {
+intSSN = Integer.parseInt(strSSN);  // 12345345
+} catch (NumberFormatException e) {
+	validSSN = false;
+}
+
+if(validSSN == true) {
+		input.add(intSSN);
+}
+else {
+JOptionPane.showMessageDialog(null, "invalid ssn","Alert", JOptionPane.ERROR_MESSAGE);
+}
 
 //SSN starting with 000 or 666 are invalid.
 //SSN has to be in format of 3-2-4.
 	
-for (String ssn : input) {
-	if (ssn.matches("^(\\d{3}-?\\d{2}-?\\d{4})$")) {
-		System.out.println("Hooray! Valid SSN: " + ssn);
+for (Integer currentSsn : input) {
+System.out.println("Hooray! Valid SSN: " + currentSsn);
+JOptionPane.showMessageDialog(null, "valid ssn!", "Hooray", JOptionPane.INFORMATION_MESSAGE);
+}
+}
 
-	}
+public boolean isSSN(String userInput) {
+	if (userInput.length() != 9) {
+		return false;
+}
+
+
+try {
+	int value = Integer.parseInt(userInput);
+	return true;
+	
+}
+
+catch (NumberFormatException e) {
+return false;
 }
 }
 }
+
+
